@@ -307,7 +307,7 @@ const PostsManager = () => {
       updateURL()
     }
     fetchData()
-  }, [skip, limit, sortBy, sortOrder, selectedTag])
+  }, [skip, limit, sortBy, sortOrder, selectedTag, fetchPosts, fetchPostsByTag, updateURL])
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
