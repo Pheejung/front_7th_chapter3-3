@@ -26,10 +26,11 @@ import {
   TableRow,
   Textarea,
 } from "../components"
-import { User, UsersResponse } from "../entities/user/types"
-import { NewComment, NewPost, Post, PostsResponse } from "../entities/post/types"
-import { Tag } from "../entities/tag/types"
-import { Comment } from "../entities/comment/types"
+// 도메인별 타입 임포트
+import type { Post, PostsResponse, NewPost } from "../entities/post/types"
+import type { User, UsersResponse } from "../entities/user/types"
+import type { Tag } from "../entities/tag/types"
+import type { Comment, NewComment } from "../entities/comment/types"
 
 // 타입 임포트 (최소 필드 기준)
 

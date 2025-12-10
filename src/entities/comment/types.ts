@@ -7,3 +7,9 @@ export interface Comment {
   user: User
   likes?: number
 }
+
+export interface NewComment {
+  body: string
+  postId: number | null
+  userId: number
+}
