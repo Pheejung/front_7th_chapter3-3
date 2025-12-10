@@ -26,74 +26,12 @@ import {
   TableRow,
   Textarea,
 } from "../components"
+import { User, UsersResponse } from "../entities/user/types"
+import { NewComment, NewPost, Post, PostsResponse } from "../entities/post/types"
+import { Tag } from "../entities/tag/types"
+import { Comment } from "../entities/comment/types"
 
-// 타입 정의
-interface Tag {
-  slug: string
-  url?: string
-}
-
-interface User {
-  id: number
-  username: string
-  image?: string
-  firstName?: string
-  lastName?: string
-  age?: number
-  email?: string
-  phone?: string
-  address?: {
-    address?: string
-    city?: string
-    state?: string
-  }
-  company?: {
-    name?: string
-    title?: string
-  }
-}
-
-interface Post {
-  id: number
-  title: string
-  body: string
-  userId: number
-  tags?: string[]
-  reactions?: {
-    likes?: number
-    dislikes?: number
-  }
-  author?: User | null
-}
-
-interface PostsResponse {
-  posts: Post[]
-  total: number
-}
-
-interface UsersResponse {
-  users: User[]
-}
-
-interface Comment {
-  id: number
-  body: string
-  postId: number
-  user: User
-  likes?: number
-}
-
-interface NewPost {
-  title: string
-  body: string
-  userId: number
-}
-
-interface NewComment {
-  body: string
-  postId: number | null
-  userId: number
-}
+// 타입 임포트 (최소 필드 기준)
 
 const PostsManager = () => {
   const navigate = useNavigate()
