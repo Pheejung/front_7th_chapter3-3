@@ -13,3 +13,5 @@ export {
   DialogTitle,
 } from "../shared/ui/dialog/Dialog"
 export { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "../shared/ui/table/Table"
+export { default as Header } from "../shared/ui/layout/Header"
+export { default as Footer } from "../shared/ui/layout/Footer"
