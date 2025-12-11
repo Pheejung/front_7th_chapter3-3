@@ -13,9 +13,7 @@ import {
   Input,
   Textarea,
 } from "../components"
-import PostsList from "../features/post-list/ui/PostsList"
-import PostEditor from "../features/post-editor/ui/PostEditor"
-import UserModal from "../features/post-user/ui/UserModal"
+import PostEditor from "../features/post/editor/ui/PostEditor"
 // 도메인별 타입 임포트
 
 import type { Post, NewPost } from "../entities/post/types"
@@ -40,7 +38,9 @@ import {
   deleteComment as apiDeleteComment,
   likeComment as apiLikeComment,
 } from "../entities/comment/api"
-import PostDetail from "../features/post-detail/ui/PostDetail"
+import PostDetail from "../features/post/detail/ui/PostDetail"
+import PostsList from "../features/post/list/ui/PostsList"
+import UserModal from "../features/post/user/ui/UserModal"
 
 // 타입 임포트 (최소 필드 기준)
 

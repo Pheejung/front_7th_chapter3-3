@@ -1,8 +1,8 @@
 import React from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../components"
-import type { Post } from "../../../entities/post/types"
-import type { Comment } from "../../../entities/comment/types"
-import CommentsList from "../../post-comments/ui/CommentList"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../../components"
+import type { Post } from "../../../../entities/post/types"
+import type { Comment } from "../../../../entities/comment/types"
+import CommentsList from "../../comments/ui/CommentList"
 
 interface Props {
   selectedPost: Post | null

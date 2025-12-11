@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react"
-import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Input, Textarea } from "../../../components"
-import type { NewPost, Post } from "../../../entities/post/types"
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Input, Textarea } from "../../../../components"
+import type { NewPost, Post } from "../../../../entities/post/types"
 
 interface Props {
   // add
