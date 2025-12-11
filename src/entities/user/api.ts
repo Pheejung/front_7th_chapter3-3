@@ -1,6 +1,6 @@
 import type { UsersResponse } from "./types"
+import { apiClient } from "../../shared/lib/fetch"
 
 export async function fetchUsers(): Promise<UsersResponse> {
-  const res = await fetch("/api/users?limit=0&select=username,image")
-  return res.json()
+  return apiClient("/api/users?limit=0&select=username,image")
 }
