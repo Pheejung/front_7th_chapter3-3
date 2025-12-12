@@ -1,4 +1,4 @@
-import PostsWidget from "../widgets/post/PostsWidget"
+import PostsWidget from "../widgets/post"
 
 const PostsManager = () => {
   return <PostsWidget />
