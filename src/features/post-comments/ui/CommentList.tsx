@@ -1,17 +1,16 @@
 import React from "react"
-import { Edit2, Plus, ThumbsUp, Trash2 } from "lucide-react"
+import { Edit2, Plus, Trash2 } from "lucide-react"
 import type { Comment } from "../../../entities/comment/types"
-import { Button } from "../../../components"
+import { Button } from "../../../shared/ui"
 
 interface Props {
   postId?: number | null
   comments: Record<number, Comment[]>
   setNewComment: (c: Partial<Comment>) => void
   setShowAddCommentDialog: (v: boolean) => void
-  likeComment: (id: number, postId: number) => Promise<void>
   setSelectedComment: (c: Comment | null) => void
   setShowEditCommentDialog: (v: boolean) => void
-  deleteComment: (id: number, postId: number) => Promise<void>
+  deleteComment: (id: number) => Promise<void>
   searchQuery: string
   highlightText: (text: string | undefined, highlight: string) => React.ReactNode
 }
@@ -21,7 +20,6 @@ export default function CommentsList({
   comments,
   setNewComment,
   setShowAddCommentDialog,
-  likeComment,
   setSelectedComment,
   setShowEditCommentDialog,
   deleteComment,
@@ -52,10 +50,6 @@ export default function CommentsList({
               <span className="truncate">{highlightText(comment.body, searchQuery)}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Button variant="ghost" size="sm" onClick={() => void likeComment(comment.id, postId)}>
-                <ThumbsUp className="w-3 h-3" />
-                <span className="ml-1 text-xs">{comment.likes}</span>
-              </Button>
               <Button
                 variant="ghost"
                 size="sm"
@@ -66,7 +60,7 @@ export default function CommentsList({
               >
                 <Edit2 className="w-3 h-3" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => void deleteComment(comment.id, postId)}>
+              <Button variant="ghost" size="sm" onClick={() => void deleteComment(comment.id)}>
                 <Trash2 className="w-3 h-3" />
               </Button>
             </div>

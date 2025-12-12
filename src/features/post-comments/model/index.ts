@@ -4,4 +4,4 @@
 
 // Currently no helpers implemented. Add named exports here as needed.
 
-export default {}
+export { default as useComments } from "./useComments"

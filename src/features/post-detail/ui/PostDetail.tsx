@@ -1,5 +1,5 @@
 import React from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../components"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../shared/ui"
 import type { Post } from "../../../entities/post/types"
 import type { Comment } from "../../../entities/comment/types"
 import CommentsList from "../../post-comments/ui/CommentList"
@@ -11,10 +11,9 @@ interface Props {
   comments: Record<number, Comment[]>
   setNewComment: (c: Partial<Comment>) => void
   setShowAddCommentDialog: (v: boolean) => void
-  likeComment: (id: number, postId: number) => Promise<void>
   setSelectedComment: (c: Comment | null) => void
   setShowEditCommentDialog: (v: boolean) => void
-  deleteComment: (id: number, postId: number) => Promise<void>
+  deleteComment: (id: number) => Promise<void>
   searchQuery: string
   highlightText: (text: string | undefined, highlight: string) => React.ReactNode
 }
@@ -26,7 +25,6 @@ export default function PostDetail({
   comments,
   setNewComment,
   setShowAddCommentDialog,
-  likeComment,
   setSelectedComment,
   setShowEditCommentDialog,
   deleteComment,
@@ -46,7 +44,6 @@ export default function PostDetail({
             comments={comments}
             setNewComment={setNewComment}
             setShowAddCommentDialog={setShowAddCommentDialog}
-            likeComment={likeComment}
             setSelectedComment={setSelectedComment}
             setShowEditCommentDialog={setShowEditCommentDialog}
             deleteComment={deleteComment}

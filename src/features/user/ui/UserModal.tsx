@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../components"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../shared/ui"
 import { User } from "../../../entities/user/types"
 
 interface Props {
@@ -31,7 +31,8 @@ export default function UserModal({ selectedUser, showUserModal, setShowUserModa
               <strong>전화번호:</strong> {selectedUser?.phone}
             </p>
             <p>
-              <strong>주소:</strong> {selectedUser?.address?.address}, {selectedUser?.address?.city}, {selectedUser?.address?.state}
+              <strong>주소:</strong> {selectedUser?.address?.address}, {selectedUser?.address?.city},{" "}
+              {selectedUser?.address?.state}
             </p>
             <p>
               <strong>직장:</strong> {selectedUser?.company?.name} - {selectedUser?.company?.title}

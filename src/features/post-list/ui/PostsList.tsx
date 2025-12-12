@@ -14,7 +14,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from "../../../components"
+} from "../../../shared/ui"
 import type { Post } from "../../../entities/post/types"
 import type { Tag } from "../../../entities/tag/types"
 import { highlightText } from "../../../shared/lib/highlight"
@@ -24,11 +24,9 @@ interface Props {
   loading: boolean
   searchQuery: string
   setSearchQuery: (v: string) => void
-  searchPosts: () => Promise<void>
   tags: Tag[]
   selectedTag: string
   setSelectedTag: (v: string) => void
-  fetchPostsByTag: (tag: string) => Promise<void>
   sortBy: string
   setSortBy: (v: string) => void
   sortOrder: string
@@ -50,11 +48,9 @@ export default function PostsList({
   loading,
   searchQuery,
   setSearchQuery,
-  searchPosts,
   tags,
   selectedTag,
   setSelectedTag,
-  fetchPostsByTag,
   sortBy,
   setSortBy,
   sortOrder,
@@ -83,9 +79,6 @@ export default function PostsList({
               className="pl-8"
               value={searchQuery}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
-              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) =>
-                e.key === "Enter" ? void searchPosts() : undefined
-              }
             />
           </div>
         </div>
@@ -93,7 +86,6 @@ export default function PostsList({
           value={selectedTag}
           onValueChange={(value: string) => {
             setSelectedTag(value)
-            void fetchPostsByTag(value)
             updateURL()
           }}
         >
@@ -109,7 +101,7 @@ export default function PostsList({
             ))}
           </SelectContent>
         </Select>
-          <Select value={sortBy} onValueChange={(v: string) => setSortBy(v)}>
+        <Select value={sortBy} onValueChange={(v: string) => setSortBy(v)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="정렬 기준" />
           </SelectTrigger>
@@ -120,7 +112,7 @@ export default function PostsList({
             <SelectItem value="reactions">반응</SelectItem>
           </SelectContent>
         </Select>
-          <Select value={sortOrder} onValueChange={(v: string) => setSortOrder(v)}>
+        <Select value={sortOrder} onValueChange={(v: string) => setSortOrder(v)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="정렬 순서" />
           </SelectTrigger>
