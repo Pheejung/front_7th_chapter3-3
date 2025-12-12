@@ -32,3 +32,5 @@ export default function ToastProvider() {
 
   return <Toast toasts={toasts} onRemove={removeToast} />
 }
+
+export { default as ToastProvider } from "./Toast"
