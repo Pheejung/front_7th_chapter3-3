@@ -16,3 +16,4 @@ export { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from ".
 export { default as Header } from "./layout/Header"
 export { default as Footer } from "./layout/Footer"
 export { ToastProvider } from "./toast"
+export { default as Pagination } from "./pagination"

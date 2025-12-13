@@ -11,7 +11,16 @@ export const sortOrderAtom = atom<string>("asc")
 export const newPostAtom = atom<NewPost>({ title: "", body: "", userId: 1 })
 export const tagsAtom = atom<Tag[]>([])
 export const searchQueryAtom = atom<string>("")
-export const selectedTagAtom = atom<string>("")
+export const selectedTagAtom = atom<string>("all")
+
+// Dialog state atoms
+export const showAddDialogAtom = atom<boolean>(false)
+export const showEditDialogAtom = atom<boolean>(false)
+export const showAddCommentDialogAtom = atom<boolean>(false)
+export const showEditCommentDialogAtom = atom<boolean>(false)
+export const showPostDetailDialogAtom = atom<boolean>(false)
+export const showUserModalAtom = atom<boolean>(false)
+
 // Comment related atoms
 export const selectedCommentAtom = atom<Comment | null>(null)
 export const newCommentAtom = atom<NewComment>({ body: "", postId: 0, userId: 1 })
