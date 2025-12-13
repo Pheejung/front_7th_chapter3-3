@@ -34,7 +34,7 @@ export const useUrlManager = () => {
       searchQuery: params.get("search") || "",
       sortBy: params.get("sortBy") || "",
       sortOrder: params.get("sortOrder") || "asc",
-      selectedTag: params.get("tag") || "",
+      selectedTag: params.get("tag") || "all",
     }
   }, [location.search])
 

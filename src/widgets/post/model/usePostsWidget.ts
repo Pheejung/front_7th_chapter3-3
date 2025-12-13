@@ -1,15 +1,41 @@
 import { useEffect } from "react"
+
+// Features
+import { usePosts } from "../../../features/post-list/model"
+import { usePostsMutation } from "../../../features/post-list/model/usePostsMutation"
+import useComments from "../../../features/post-comments/model/useComments"
+
+// Managers (기존 로직 유지)
 import { usePostsManager } from "./usePostsManager"
-import { useCommentsManager } from "./useCommentsManager"
+
+// Utils
 import { useUrlManager } from "./useUrlManager"
 import type { Post } from "../../../entities/post/types"
 
+/**
+ * PostsWidget - Features와 Managers를 조합
+ * 점진적으로 FSD 구조로 개선 예정
+ */
 export const usePostsWidget = () => {
+  // === MANAGERS ===
   const postsManager = usePostsManager()
-  const commentsManager = useCommentsManager(postsManager.selectedPost?.id ?? null)
+
+  // === FEATURES ===
+  const postsFeature = usePosts({
+    initialSkip: 0,
+    initialLimit: 10,
+    searchQuery: "",
+    selectedTag: "all",
+  })
+
+  const postsMutation = usePostsMutation()
+
+  const commentsFeature = useComments(postsManager.selectedPost?.id ?? null)
+
+  // === UTILS ===
   const { updateURL, parseURLParams } = useUrlManager()
 
-  // URL 파라미터를 상태에 반영
+  // === EFFECTS ===
   useEffect(() => {
     const params = parseURLParams()
     postsManager.setSkip(params.skip)
@@ -20,7 +46,6 @@ export const usePostsWidget = () => {
     postsManager.setSelectedTag(params.selectedTag)
   }, [parseURLParams, postsManager])
 
-  // 태그 초기 로딩
   useEffect(() => {
     const fetchTagsAsync = async () => {
       await postsManager.fetchTagsHandler()
@@ -28,13 +53,12 @@ export const usePostsWidget = () => {
     fetchTagsAsync()
   }, [postsManager])
 
-  // openPostDetail을 수정해서 postDetailDialog도 열기
+  // === ACTIONS ===
   const openPostDetail = (post: Post) => {
     postsManager.openPostDetail(post)
-    commentsManager.setShowPostDetailDialog(true)
+    // Note: UI state management moved to component level for FSD compliance
   }
 
-  // URL 업데이트 함수
   const handleUpdateURL = () => {
     updateURL({
       skip: postsManager.skip,
@@ -47,16 +71,51 @@ export const usePostsWidget = () => {
   }
 
   return {
-    // Posts data & actions
-    ...postsManager,
+    // Posts data (from features + managers)
+    posts: postsFeature.posts,
+    total: postsFeature.total,
+    loading: postsFeature.loading,
+    skip: postsManager.skip,
+    limit: postsManager.limit,
+    setSkip: postsManager.setSkip,
+    setLimit: postsManager.setLimit,
 
-    // Comments data & actions
-    ...commentsManager,
+    // Search & Filter
+    searchQuery: postsManager.searchQuery,
+    setSearchQuery: postsManager.setSearchQuery,
+    selectedTag: postsManager.selectedTag,
+    setSelectedTag: postsManager.setSelectedTag,
+    sortBy: postsManager.sortBy,
+    setSortBy: postsManager.setSortBy,
+    sortOrder: postsManager.sortOrder,
+    setSortOrder: postsManager.setSortOrder,
 
-    // URL management
-    updateURL: handleUpdateURL,
+    // Tags
+    tags: postsManager.tags,
 
-    // Modified actions
+    // Post dialogs
+    showAddDialog: postsManager.showAddDialog,
+    setShowAddDialog: postsManager.setShowAddDialog,
+    showEditDialog: postsManager.showEditDialog,
+    setShowEditDialog: postsManager.setShowEditDialog,
+    selectedPost: postsManager.selectedPost,
+    setSelectedPost: postsManager.setSelectedPost,
+
+    // Post operations (from features)
+    newPost: postsManager.newPost,
+    setNewPost: postsManager.setNewPost,
+    addPost: postsMutation.addPost,
+    updatePost: postsMutation.updatePost,
+    deletePost: postsMutation.deletePost,
+
+    // Comments (from features)
+    comments: postsManager.selectedPost?.id ? commentsFeature.comments[postsManager.selectedPost.id] || [] : [],
+    addComment: commentsFeature.addComment,
+    updateComment: commentsFeature.updateComment,
+    deleteComment: commentsFeature.deleteComment,
+
+    // Actions
     openPostDetail,
+    updateURL: handleUpdateURL,
   }
 }

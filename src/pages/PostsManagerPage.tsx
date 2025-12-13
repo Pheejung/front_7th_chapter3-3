@@ -1,7 +1,7 @@
-import PostsWidget from "../widgets/post"
+import PostsWidgetView from "../widgets/post"
 
 const PostsManager = () => {
-  return <PostsWidget />
+  return <PostsWidgetView />
 }
 
 export default PostsManager
