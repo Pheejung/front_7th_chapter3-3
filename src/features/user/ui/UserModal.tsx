@@ -1,13 +1,9 @@
+import { useAtom } from "jotai"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../../shared/ui"
-import { User } from "../../../entities/user/types"
-
-interface Props {
-  selectedUser: User | null
-  showUserModal: boolean
-  setShowUserModal: (v: boolean) => void
-}
-
-export default function UserModal({ selectedUser, showUserModal, setShowUserModal }: Props) {
+import { selectedUserAtom, showUserModalAtom } from "../../../shared/store/postAtoms"
+export default function UserModal() {
+  const [selectedUser] = useAtom(selectedUserAtom)
+  const [showUserModal, setShowUserModal] = useAtom(showUserModalAtom)
   return (
     <Dialog open={showUserModal} onOpenChange={setShowUserModal}>
       <DialogContent>
